@@ -6,6 +6,7 @@ A fullstack event management web application for OMH.net to create, edit, and de
 
 ## 🚀 Features
 
+- 🔐 Admin login required to access the dashboard (mock authentication with `admin` / `admin`)
 - 📝 Create and edit event entries with form validation
 - 🖼️ Upload and preview event images (base64 encoded)
 - 🗑️ Delete events

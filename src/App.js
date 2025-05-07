@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AdminLogin from './AdminLogin';  
 import EventItem from './components/EventItem';
 import EventForm from './components/EventForm';
 
 function App() {
   const [events, setEvents] = useState([]);
   const [eventToEdit, setEventToEdit] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
 
   const fetchEvents = () => {
     axios
@@ -14,9 +16,15 @@ function App() {
       .catch(error => console.error('Error fetching events:', error));
   };
 
+  const handleLogin = () => {
+    setIsAuthenticated(true); 
+  };
+
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    if (isAuthenticated) {
+      fetchEvents(); 
+    }
+  }, [isAuthenticated]);
 
   const handleEdit = (event) => {
     setEventToEdit(event);
@@ -30,6 +38,10 @@ function App() {
   const handleDelete = () => {
     fetchEvents();
   };
+
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={handleLogin} />; 
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
